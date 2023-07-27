@@ -1,0 +1,15 @@
+﻿{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "MyBGList Kestrel": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "launchUrl": "boardgames",
+      "applicationUrl": "https://localhost:55222;http://localhost:55221;",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Satging"
+      }
+    }
+  }
+}
