@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MyBGList.Controllers
 {
+   
     [ApiController]
     [Route("[controller]")]
     public class BoardGamesController : ControllerBase
@@ -13,9 +15,13 @@ namespace MyBGList.Controllers
             _logger = logger;
         }
 
+        //[EnableCors]
         [HttpGet(Name = "GetBoardGames")]
+        [ResponseCache(Location =ResponseCacheLocation.Any, Duration = 60)]
         public IEnumerable<BoardGame> Get()
         {
+            var c = HttpContext.Request;
+            
             return new[]
             {
                 new BoardGame

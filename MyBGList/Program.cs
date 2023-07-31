@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using MyBGList;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +17,8 @@ builder.Services.AddCors(options =>
     {
         options.AddDefaultPolicy(cnfg =>
         {
-            cnfg.WithOrigins(builder.Configuration["AllowedOrigins"] ?? "*");
+            var ao = builder.Configuration["AllowedOrigins"]?.Split(";") ?? new[] { "*" };
+            cnfg.WithOrigins( origins: ao );
             cnfg.AllowAnyHeader();
             cnfg.AllowAnyMethod();
         });
@@ -46,17 +49,39 @@ else
 {
     app.UseExceptionHandler("/error");
 }
+//..Use CORS by means of CORS middleware
+//... applies the selected CORS policy(here default - no name) to all endpoints.
+app.UseCors(); // or named policy -> app.USeCors("AnyOrigin")
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 
-app.MapGet("/error/test", (ctxt) =>
+app.MapGet("/error/test",
+    [ResponseCache(NoStore = true)]
+    [EnableCors(PolicyName ="AnyOrigin")] (ctxt) =>
 {
     var e = new Exception($"Test: {ctxt.User.Identity?.Name}");
     throw e;
 });
-app.MapGet("/error", () => Results.Problem());
+app.MapGet("/error",
+    [ResponseCache(NoStore =true)]
+    [EnableCors(PolicyName = "AnyOrigin")] () => Results.Problem());
+
+app.MapGet("/cod/test",
+    [EnableCors]
+    [ResponseCache(NoStore = true)]
+    () =>
+    {
+       return Results.Text("<script>" +
+            "window.alert('Your client supports JavaScript!" +
+            "\\r\\n\\r\\n" +
+            $"Server time (UTC): {DateTime.UtcNow.ToString("o")}" +
+            "\\r\\n" +
+            "Client time (UTC): ' + new Date().toISOString());" +
+            "</script>" +
+            "<noscript>Your client does not support JavaScript</noscript>",
+            "text/html");
+    });
 
 app.MapControllers();
 

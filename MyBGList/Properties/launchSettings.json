@@ -8,7 +8,7 @@
       "launchUrl": "boardgames",
       "applicationUrl": "https://localhost:55222;http://localhost:55221;",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Satging"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
   }
