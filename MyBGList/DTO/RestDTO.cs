@@ -1,6 +1,6 @@
 ﻿namespace MyBGList.DTO
 {
-    public class ResponseDTO<T>
+    public class RestDTO<T>
     {
         public List<LinkDTO> Links { get; set; } = new List<LinkDTO>();
 

@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using MyBGList.DTO;
+using Microsoft.VisualBasic;
+using MyBGList_ApiVersion.DTO.v1;
 
-namespace MyBGList.Controllers
+namespace MyBGList_ApiVersion.Controllers.v1
 {
-   
+    [ApiVersion("1.0")]
     [ApiController]
-    [Route("[controller]")]
+    [Route("/v{version:apiVersion}/[controller]")]
     public class BoardGamesController : ControllerBase
     {
         private ILogger<BoardGamesController> _logger;
@@ -18,9 +19,10 @@ namespace MyBGList.Controllers
 
         //[EnableCors]
         [HttpGet(Name = "GetBoardGames")]
-        [ResponseCache(Location =ResponseCacheLocation.Any, Duration = 60)]
+        [ResponseCache(NoStore = true)]
         public RestDTO<BoardGame[]> Get()
         {
+           
             return new RestDTO<BoardGame[]>
             {
                 Data = new BoardGame[]
@@ -50,7 +52,7 @@ namespace MyBGList.Controllers
                         MaxPlayers=5
                     }
                 },
-                 Links = new List<LinkDTO>()
+                Links = new List<LinkDTO>()
                  {
                      new LinkDTO(
                          href:Url.Action(null, "BoardGames", null, Request.Scheme) ?? "",
@@ -58,7 +60,7 @@ namespace MyBGList.Controllers
                          type:"GET")
 
                  }
-               
+
             };
         }
     }
