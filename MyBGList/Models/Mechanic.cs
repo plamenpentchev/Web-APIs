@@ -16,5 +16,7 @@ namespace MyBGList.Models
         public DateTime CreationDate { get; set; }
         [Required]
         public int LastModifiedDate { get; set; }
+
+        public ICollection<BoardGames_Mechanics>? BoardGames_Mechanics { get; set; }
     }
 }
