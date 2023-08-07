@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using MyBGList_ApiVersion.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +55,11 @@ builder.Services.AddVersionedApiExplorer(options =>
     options.SubstituteApiVersionInUrl = true;
 });
 
+builder.Services.AddDbContext<ApplicationDbContext>( options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultCOnnection") ?? "");
+});
+
 
 var app = builder.Build();
 
@@ -67,6 +74,7 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint($"/swagger/v3/swagger.json", "MyBGList v3");
     });
 }
+
 app.UseCors();
 app.UseHttpsRedirection();
 

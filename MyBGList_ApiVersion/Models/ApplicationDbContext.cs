@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace MyBGList.Models
+namespace MyBGList_ApiVersion.Models
 {
     public class ApplicationDbContext: DbContext
     {
