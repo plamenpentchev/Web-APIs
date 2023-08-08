@@ -1,6 +1,6 @@
 ﻿namespace MyBGList_ApiVersion.DTO.v1
 {
-    public class BoardGame
+    public class BoardGameDTO
     {
         public int Id { get; set; }
         public string? Name { get; set; } = default!;

@@ -11,8 +11,11 @@ namespace MyBGList_ApiVersion.Models
         [Required]
         public int Id { get; set; }
         [Required]
+        public int PublisherId { get; set; }
+
+        [Required]
         [MaxLength(200)]
-        public string Name { get; set; } = null;
+        public string Name { get; set; } = string.Empty;
         [Required]
         public int Year { get; set; }
         [Required]
@@ -42,5 +45,19 @@ namespace MyBGList_ApiVersion.Models
 
         public ICollection<BoardGames_Domains>? BoardGames_Domains { get; set; }
         public ICollection<BoardGames_Mechanics>? BoardGames_Mechanics { get; set; }
+
+        public ICollection<BoardGames_Categories>? BoardGames_Categories { get; set; }
+
+        //Excercises 4.4
+
+        [MaxLength(200)]
+        public string? AlternateNames { get; set; } = default!;
+
+        [MaxLength(200)]
+        public string? Designer { get; set; } = default!;
+        [Required]
+        public int Flags { get; set; }
+       
+        public Publisher? Publisher { get; set; }
     }
 }

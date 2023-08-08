@@ -14,10 +14,15 @@ namespace MyBGList_ApiVersion.Models
 
         public DbSet<BoardGames_Mechanics> BoardGames_Mechanics => Set<BoardGames_Mechanics>();
 
+        public DbSet<Publisher>? Publishers  => Set<Publisher>();
+
+        public DbSet<BoardGames_Categories> BoardGames_Categories => Set<BoardGames_Categories>();
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            //many-to many, many board games many domains 
             modelBuilder.Entity<BoardGames_Domains>()
                 .HasKey(p => new { p.BoardGameId, p.DomainId });
 
@@ -35,6 +40,7 @@ namespace MyBGList_ApiVersion.Models
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
+            //many-to many, many board games many mechanics 
             modelBuilder.Entity<BoardGames_Mechanics>()
                 .HasKey(p => new { p.BoardGameId, p.MechanicId });
 
@@ -52,7 +58,31 @@ namespace MyBGList_ApiVersion.Models
                 .IsRequired()
                 .OnDelete (DeleteBehavior.Cascade);
 
+            //One-to-many One publisher to many board games
+            modelBuilder.Entity<BoardGame>()
+                .HasOne(x => x.Publisher)
+                .WithMany(x => x.BoardGames )
+                .HasForeignKey(x => x.PublisherId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
+            //many-to many, many board games many categories 
+            modelBuilder.Entity<BoardGames_Categories>()
+                .HasKey(p => new { p.CategoryId, p.BoardGameId });
+
+            modelBuilder.Entity<BoardGames_Categories>()
+                .HasOne(x => x.Category)
+                .WithMany(X => X.BoardGames_Categories)
+                .HasForeignKey(x => x.CategoryId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<BoardGames_Categories>()
+                .HasOne(x => x.BoardGame)
+                .WithMany(X => X.BoardGames_Categories)
+                .HasForeignKey(x => x.BoardGameId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

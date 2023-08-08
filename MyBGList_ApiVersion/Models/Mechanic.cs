@@ -18,5 +18,12 @@ namespace MyBGList_ApiVersion.Models
         public int LastModifiedDate { get; set; }
 
         public ICollection<BoardGames_Mechanics>? BoardGames_Mechanics { get; set; }
+
+        //Excercises 4.4
+
+        [MaxLength(200)]
+        public string? Notes { get; set; } = default!;
+        [Required]
+        public int Flags { get; set; }
     }
 }

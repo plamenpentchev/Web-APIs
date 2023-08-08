@@ -19,13 +19,13 @@ namespace MyBGList_ApiVersion.Controllers.v2
         //[EnableCors]
         [HttpGet(Name = "GetBoardGames")]
         [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 120)]
-        public RestDTO<BoardGame[]> Get()
+        public RestDTO<BoardGameDTO[]> Get()
         {
-            return new RestDTO<BoardGame[]>
+            return new RestDTO<BoardGameDTO[]>
             {
-                Items = new BoardGame[]
+                Items = new BoardGameDTO[]
                 {
-                    new BoardGame
+                    new BoardGameDTO
                     {
                         Id = 1,
                         Name="Axis & Allies",
@@ -33,7 +33,7 @@ namespace MyBGList_ApiVersion.Controllers.v2
                         MinPlayers=2,
                         MaxPlayers=5
                     },
-                    new BoardGame
+                    new BoardGameDTO
                     {
                         Id=2,
                         Name="Citadels",
@@ -41,7 +41,7 @@ namespace MyBGList_ApiVersion.Controllers.v2
                         MinPlayers=2,
                         MaxPlayers=8
                     },
-                    new BoardGame
+                    new BoardGameDTO
                     {
                         Id=3,
                         Name="Terraforming Mars",
