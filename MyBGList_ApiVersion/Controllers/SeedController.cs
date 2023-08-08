@@ -54,10 +54,16 @@ namespace MyBGList_ApiVersion.Controllers
                     var skippedRow = 0;
                     foreach (var record in records)
                     {
-                        if (!record.ID.HasValue || string.IsNullOrEmpty(record.Name) || existingBoardGames.ContainsKey(record.ID)
+                        if (!record.ID.HasValue || 
+                            string.IsNullOrEmpty(record.Name) || 
+                            existingBoardGames.ContainsKey(record.ID.Value))
                         {
                             skippedRow++;
                             continue;
+                        }
+                        var boardGAme = new BoardGame()
+                        {
+
                         }
 
                     }
