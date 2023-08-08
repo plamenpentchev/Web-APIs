@@ -57,7 +57,7 @@ builder.Services.AddVersionedApiExplorer(options =>
 
 builder.Services.AddDbContext<ApplicationDbContext>( options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultCOnnection") ?? "");
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ?? "");
 });
 
 
