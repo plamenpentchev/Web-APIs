@@ -34,14 +34,15 @@ namespace MyBGList_ApiVersion.Controllers.v1
             {
                 Data = await bg.ToArrayAsync(),
                 Links = new List<LinkDTO>()
-                 {
-                     new LinkDTO(
-                         href:Url.Action(null, "BoardGames", null, Request.Scheme) ?? "",
-                         rel:"self",
-                         type:"GET")
+                {
+                    new LinkDTO(
+                         href: Url.Action(null, "BoardGames", null, Request.Scheme) ?? "",
+                         rel: "self",
+                         type: "GET")
 
-                 }
+                }
 
-            }
+            };
+        }
     }
 }

@@ -11,7 +11,7 @@ namespace MyBGList_ApiVersion.Models
         public int Id { get; set; }
         [Required]
         [MaxLength(200)]
-        public string Name { get; set; } = null;
+        public string? Name { get; set; } = string.Empty;
         [Required]
         public DateTime CreationDate { get; set; }
         [Required]
